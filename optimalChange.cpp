@@ -13,9 +13,7 @@ class Answer
 {
 public:
     /*  Cette fonciton retourne la monaie avec le moins de pieces/billiets possible pour le nombre passer en parametre
-    *
-    *   Lors de mes tests, les deux fonctions semblait avoir plus ou moins le meme temps d'execution
-    *   sans qu'aucune ne se démarque a 100% des tests
+    * Prend ne compte les cas tordue
     */
     static bool optimalChange(long s, Change &c)
     {
