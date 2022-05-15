@@ -24,66 +24,47 @@ public:
         c.bill10 = 0;
         while (s > 0)
         {
-
-        if (s%10==0)
-        {
-            int b = s/10;
-            c.bill10+=b;
-            s=b;
+            if (s % 10 == 0 || (s > 10 && s % 2 != 1))
+            {
+                long current = s / 10;
+                c.bill10 += current;
+                s = s % 10;
+            }
+            else if (s % 5 == 0)
+            {
+                long current = s / 5;
+                c.bill10 += current;
+                s = s % 5;
+            }
+            else if (s > 5 && s % 2 == 1)
+            {
+                ++c.bill5;
+                s -= 5;
+            }
+            else if (s % 2 == 0)
+            {
+                long current = s / 2;
+                c.coin2 += current;
+                s = 0;
+            }
+            else if (s - 10 > 0)
+            {
+                ++c.bill10;
+                s -= 10;
+            }
+            else if (s - 5 > 0)
+            {
+                ++c.bill5;
+                s -= 5;
+            }
+            else if (s - 2 > 0)
+            {
+                ++c.coin2;
+                s -= 2;
+            }
+            else
+                return false;
         }
-        else if (s%5==0)
-        {
-            int b = s/5;
-            c.bill5+=b;
-            s=b;
-        }
-        else if (s%2==0)
-        {
-            int ci = s/2;
-            c.coin2+=ci;
-            s=ci;
-        }
-        else if (s - 10 > 0)
-        {
-           
-            c.bill10++;
-            s-=10;
-        }
-        else if (s - 5 > 0)
-        {
-           
-            c.bill5++;
-            s-=5;
-        }
-        else if (s - 2 > 0)
-        {
-           
-            c.coin2++;
-            s-=2;
-        }
-        else 
-        {
-            return false;
-        }
-        }
-        return false;
-    }
-
-    /**
-     * @brief La meme fonction mais en utilisant la facilité du : long a = 1.99; a == 1
-     * 
-     */
-    static bool optimalChange2(long s, Change& c)
-    {
-        if (s < 0)
-            return false;
-
-        long current = s % 10;
-        c.bill10 = s / 10;
-        c.bill5 = current / 5;
-        current = current % 5;
-        c.coin2 = current / 2;
-
-        return (current % 2 == 0);
+        return true;
     }
 };
