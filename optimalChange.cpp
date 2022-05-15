@@ -12,6 +12,11 @@ typedef struct {
 class Answer
 {
 public:
+    /*  Cette fonciton retourne la monaie avec le moins de pieces/billiets possible pour le nombre passer en parametre
+    *
+    *   Lors de mes tests, les deux fonctions semblait avoir plus ou moins le meme temps d'execution
+    *   sans qu'aucune ne se démarque a 100% des tests
+    */
     static bool optimalChange(long s, Change &c)
     {
         c.coin2 = 0;
@@ -62,5 +67,23 @@ public:
         }
         }
         return false;
+    }
+
+    /**
+     * @brief La meme fonction mais en utilisant la facilité du : long a = 1.99; a == 1
+     * 
+     */
+    static bool optimalChange2(long s, Change& c)
+    {
+        if (s < 0)
+            return false;
+
+        long current = s % 10;
+        c.bill10 = s / 10;
+        c.bill5 = current / 5;
+        current = current % 5;
+        c.coin2 = current / 2;
+
+        return (current % 2 == 0);
     }
 };
